@@ -39,6 +39,9 @@ public class User {
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 
+    private boolean accountLocked;
+    private boolean enabled;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
