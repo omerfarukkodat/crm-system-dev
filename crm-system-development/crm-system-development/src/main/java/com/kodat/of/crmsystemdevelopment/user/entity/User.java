@@ -8,8 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -32,10 +32,10 @@ public class User {
     @Column(unique = true)
     public String username;
     public String password;
-    @CreatedDate
+    @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdDate;
-    @LastModifiedDate
+    @UpdateTimestamp
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 

@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kodat.of.crmsystemdevelopment.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,7 +18,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
+@EntityListeners(AuditingEntityListener.class)
 public class Role {
 
     @Id
@@ -28,11 +31,11 @@ public class Role {
     @JsonIgnore
     private Set<User> user;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(nullable = false,updatable = false)
     private LocalDateTime createdDate;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 

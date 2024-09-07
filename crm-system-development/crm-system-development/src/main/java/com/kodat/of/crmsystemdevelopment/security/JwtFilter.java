@@ -39,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
         final String authorization = request.getHeader("Authorization");
-        if (authorization == null && !authorization.startsWith("Bearer ")) {
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
