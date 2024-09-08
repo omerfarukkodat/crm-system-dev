@@ -19,7 +19,6 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private final Logger LOG = LoggerFactory.getLogger(CustomerService.class);
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
@@ -84,7 +83,6 @@ public class CustomerService {
         customer.setEmail(request.email());
         customer.setRegion(request.region());
 
-        LOG.info(customer.toString());
 
         customerRepository.save(customer);
 
