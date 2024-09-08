@@ -1,6 +1,7 @@
 package com.kodat.of.crmsystemdevelopment.customer;
 
 
+import com.kodat.of.crmsystemdevelopment.common.PageResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,15 @@ public class CustomerController {
             @PathVariable("customer-id") Integer customerId
     ){
         return ResponseEntity.ok(service.findByCustomerId(customerId));
+    }
+
+    @GetMapping
+    public ResponseEntity<PageResponse<CustomerResponse>> findAllCustomers(
+            @RequestParam(name = "page" , defaultValue = "0" , required = false) int page,
+            @RequestParam(name = "size" , defaultValue = "10" , required = false) int size,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(service.findAllCustomers(page,size,connectedUser));
     }
 
 
