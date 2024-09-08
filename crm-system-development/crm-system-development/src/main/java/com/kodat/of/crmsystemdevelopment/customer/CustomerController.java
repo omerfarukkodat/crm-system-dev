@@ -43,7 +43,7 @@ public class CustomerController {
         return ResponseEntity.ok(service.findAllCustomers(page,size,connectedUser));
     }
 
-    @PutMapping("{/customerId}")
+    @PutMapping("/{customerId}")
     public ResponseEntity<CustomerResponse> updateCustomer(
             @PathVariable("customerId") Integer customerId,
             @RequestBody @Valid CustomerRequest request,
@@ -51,6 +51,16 @@ public class CustomerController {
     ){
         return ResponseEntity.ok(service.updateCustomer(customerId,request,connectedUser));
     }
+
+    @DeleteMapping("/{customerId}")
+    public ResponseEntity<Void> deleteCustomer(
+            @PathVariable Integer customerId,
+            Authentication connectedUser
+    ){
+        service.deleteCustomer(customerId,connectedUser);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 

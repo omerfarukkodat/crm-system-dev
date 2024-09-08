@@ -5,6 +5,8 @@ import com.kodat.of.crmsystemdevelopment.common.PageResponse;
 import com.kodat.of.crmsystemdevelopment.user.entity.CustomUserDetails;
 import com.kodat.of.crmsystemdevelopment.user.entity.User;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Service
 public class CustomerService {
+
+    private final Logger LOG = LoggerFactory.getLogger(CustomerService.class);
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
@@ -80,7 +84,22 @@ public class CustomerService {
         customer.setEmail(request.email());
         customer.setRegion(request.region());
 
-        return customerMapper.toCustomerResponse(customerRepository.save(customer));
+        LOG.info(customer.toString());
+
+        customerRepository.save(customer);
+
+        return customerMapper.toCustomerResponse(customer);
+    }
+
+    public void deleteCustomer(Integer customerId, Authentication connectedUser) {
+        CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
+        User user = userDetails.getUser();
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(()-> new EntityNotFoundException("Customer with id " + customerId + " not found"));
+
+        customerRepository.delete(customer);
+
     }
 }
 
