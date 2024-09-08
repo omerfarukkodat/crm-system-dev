@@ -101,6 +101,42 @@ public class CustomerService {
         customerRepository.delete(customer);
 
     }
+
+
+    public PageResponse<CustomerResponse>  filterCustomers(
+            int page,
+            int size,
+            String firstName,
+            String lastName,
+            String email,
+            String region,
+            Authentication connectedUser) {
+
+        CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
+        User user = userDetails.getUser();
+
+        Pageable pageable = PageRequest.of(page,size, Sort.by("registrationDate").descending());
+        Page<Customer> customerPage = customerRepository.findAll(pageable);
+
+        List<CustomerResponse> customerResponses = customerPage.stream()
+                .filter(customer -> firstName == null || customer.getFirstName().toLowerCase().startsWith(firstName.toLowerCase()))
+                .filter(customer -> lastName == null || customer.getLastName().toLowerCase().startsWith(lastName.toLowerCase()))
+                .filter(customer -> email == null || customer.getEmail().toLowerCase().startsWith(email.toLowerCase()))
+                .filter(customer -> region == null || customer.getRegion().toLowerCase().startsWith(region.toLowerCase()))
+                .map(customerMapper::toCustomerResponse)
+                .toList();
+
+        return new PageResponse<>(
+                customerResponses,
+                customerPage.getNumber(),
+                customerPage.getSize(),
+                customerPage.getTotalElements(),
+                customerPage.getTotalPages(),
+                customerPage.isFirst(),
+                customerPage.isLast()
+        );
+
+    }
 }
 
 

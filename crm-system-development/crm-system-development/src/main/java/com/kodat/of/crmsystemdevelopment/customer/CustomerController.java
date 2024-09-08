@@ -43,6 +43,19 @@ public class CustomerController {
         return ResponseEntity.ok(service.findAllCustomers(page,size,connectedUser));
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<PageResponse<CustomerResponse>> filterCustomers(
+            @RequestParam(name = "page" , defaultValue = "0" , required = false) int page,
+            @RequestParam(name = "size" , defaultValue = "10" , required = false) int size,
+            @RequestParam(name = "firstName" , required = false) String firstName,
+            @RequestParam(name = "lastName", required = false) String lastName,
+            @RequestParam(name = "email" , required = false) String email,
+            @RequestParam(name = "region" , required = false ) String region,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(service.filterCustomers(page,size,firstName,lastName,email,region,connectedUser));
+    }
+
     @PutMapping("/{customerId}")
     public ResponseEntity<CustomerResponse> updateCustomer(
             @PathVariable("customerId") Integer customerId,
