@@ -2,14 +2,17 @@ package com.kodat.of.crmsystemdevelopment.auth;
 
 
 import com.kodat.of.crmsystemdevelopment.security.JwtService;
+import com.kodat.of.crmsystemdevelopment.user.entity.CustomUserDetails;
 import com.kodat.of.crmsystemdevelopment.user.entity.User;
 import com.kodat.of.crmsystemdevelopment.user.entity.UserRepository;
 import com.kodat.of.crmsystemdevelopment.user.role.RoleRepository;
 import com.kodat.of.crmsystemdevelopment.user.token.TokenRepository;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -42,10 +45,30 @@ public class AuthenticationService {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
-                .enabled(false)
+                .enabled(true)
                 .roles(List.of(userRole))
                 .build();
 
         userRepository.save(user);
+    }
+
+    public AuthenticateResponse authenticate(AuthenticateRequest request) {
+
+        var auth = authenticationManager
+                .authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                request.getUsername(),
+                                request.getPassword()));
+
+        var claims = new HashMap<String,Object>();
+        var customUserDetails = (CustomUserDetails) auth.getPrincipal();
+        var user = customUserDetails.getUser();
+        claims.put("username", user.getUsername());
+        var jwtToken = jwtService.generateToken(claims,customUserDetails);
+        return AuthenticateResponse
+                .builder()
+                .token(jwtToken)
+                .build();
+
     }
 }
