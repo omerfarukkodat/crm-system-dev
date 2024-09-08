@@ -1,6 +1,8 @@
 package com.kodat.of.crmsystemdevelopment.auth;
 
 
+import com.kodat.of.crmsystemdevelopment.exception.RoleNotFoundException;
+import com.kodat.of.crmsystemdevelopment.exception.UserAlreadyExistsException;
 import com.kodat.of.crmsystemdevelopment.security.JwtService;
 import com.kodat.of.crmsystemdevelopment.user.entity.CustomUserDetails;
 import com.kodat.of.crmsystemdevelopment.user.entity.User;
@@ -9,8 +11,10 @@ import com.kodat.of.crmsystemdevelopment.user.role.RoleRepository;
 import com.kodat.of.crmsystemdevelopment.user.token.TokenRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +42,13 @@ public class AuthenticationService {
 
     public void register(RegistrationRequest request) {
 
+        if (userRepository.existsByUsername(request.getUsername())){
+            throw new UserAlreadyExistsException("User with username " + request.getUsername() + " already exists.");
+        }
+
+
         var userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new RuntimeException("Role Not Found"));
+                .orElseThrow(() -> new RoleNotFoundException("Role Not Found"));
 
         var user = User.builder()
                 .username(request.getUsername())
@@ -53,6 +62,10 @@ public class AuthenticationService {
     }
 
     public AuthenticateResponse authenticate(AuthenticateRequest request) {
+
+
+       try {
+
 
         var auth = authenticationManager
                 .authenticate(
@@ -70,5 +83,8 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
 
+    }catch (AuthenticationException e){
+       throw new RuntimeException("Authentication Failed" + e.getMessage());
+       }
     }
 }

@@ -2,11 +2,10 @@ package com.kodat.of.crmsystemdevelopment.customer;
 
 
 import com.kodat.of.crmsystemdevelopment.common.PageResponse;
+import com.kodat.of.crmsystemdevelopment.exception.CustomerNotFoundException;
 import com.kodat.of.crmsystemdevelopment.user.entity.CustomUserDetails;
 import com.kodat.of.crmsystemdevelopment.user.entity.User;
-import jakarta.persistence.EntityNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,9 +34,12 @@ public class CustomerService {
         Customer customer = customerMapper.toCustomer(request);
         customer.setUser(user);
 
-      return customerRepository.save(customer).getId();
-
-
+        try {
+            customerRepository.save(customer);
+            return customer.getId();
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Duplicate email or data integrity violation occurred");
+        }
     }
 
     public CustomerResponse findByCustomerId(Integer customerId) {
@@ -45,7 +47,7 @@ public class CustomerService {
        return customerRepository.findById(customerId)
                .map(customerMapper::toCustomerResponse)
                 .orElseThrow(()->
-                new EntityNotFoundException("Customer with id " + customerId + " not found"));
+                new CustomerNotFoundException("Customer with id " + customerId + " not found"));
     }
 
 
@@ -76,7 +78,7 @@ public class CustomerService {
         User user = userDetails.getUser();
 
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(()-> new EntityNotFoundException("Customer with id " + customerId + " not found"));
+                .orElseThrow(()-> new CustomerNotFoundException("Customer with id " + customerId + " not found"));
 
         customer.setFirstName(request.firstName());
         customer.setLastName(request.lastName());
@@ -94,7 +96,7 @@ public class CustomerService {
         User user = userDetails.getUser();
 
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(()-> new EntityNotFoundException("Customer with id " + customerId + " not found"));
+                .orElseThrow(()-> new CustomerNotFoundException("Customer with id " + customerId + " not found"));
 
         customerRepository.delete(customer);
 
