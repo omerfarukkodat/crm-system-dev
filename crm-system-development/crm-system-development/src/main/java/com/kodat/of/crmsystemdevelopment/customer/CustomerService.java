@@ -12,8 +12,9 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.customerRepository = customerRepository;
+        this.customerMapper = customerMapper;
     }
 
     public Integer saveCustomer(CustomerRequest request, Authentication connectedUser) {
@@ -22,6 +23,8 @@ public class CustomerService {
         User user = userDetails.getUser();
         Customer customer = customerMapper.toCustomer(request);
         customer.setUser(user);
+
+      return customerRepository.save(customer).getId();
 
 
     }

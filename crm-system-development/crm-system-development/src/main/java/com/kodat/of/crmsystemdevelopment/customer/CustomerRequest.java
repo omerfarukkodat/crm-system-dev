@@ -3,7 +3,7 @@ package com.kodat.of.crmsystemdevelopment.customer;
 import jakarta.validation.constraints.*;
 
 public record CustomerRequest(
-        @NotNull(message = "Customer ID is required")
+
         Integer id,
         @NotBlank(message = "First name is required")
         @Size(max = 50, message = "First name cannot exceed 50 characters")

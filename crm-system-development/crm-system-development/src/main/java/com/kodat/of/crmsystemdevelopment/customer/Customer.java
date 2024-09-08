@@ -4,11 +4,9 @@ package com.kodat.of.crmsystemdevelopment.customer;
 import com.kodat.of.crmsystemdevelopment.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDateTime;
 
-import java.util.Date;
-import java.util.List;
 
 @Builder
 @Getter
@@ -21,7 +19,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String firstName;
     private String lastName;
 
@@ -30,8 +28,8 @@ public class Customer {
     private String region;
 
     @CreationTimestamp
-    @Column(updatable = false, insertable = false, nullable = false)
-    private Date registrationDate;
+    @Column(updatable = false,  nullable = false)
+    private LocalDateTime registrationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
