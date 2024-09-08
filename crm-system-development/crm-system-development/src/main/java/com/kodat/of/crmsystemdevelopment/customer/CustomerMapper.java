@@ -26,6 +26,7 @@ public class CustomerMapper {
                 .email(customer.getEmail())
                 .region(customer.getRegion())
                 .createdByUser(customer.getUser().getUsername())
+                .registrationDate(customer.getRegistrationDate())
                 .build();
 
     }
