@@ -1,6 +1,7 @@
 package com.kodat.of.crmsystemdevelopment.user.entity;
 
 
+import com.kodat.of.crmsystemdevelopment.customer.Customer;
 import com.kodat.of.crmsystemdevelopment.user.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,5 +45,8 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<Customer> customers;
 
 }
