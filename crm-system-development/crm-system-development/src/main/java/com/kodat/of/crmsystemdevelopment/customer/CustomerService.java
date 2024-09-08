@@ -66,4 +66,25 @@ public class CustomerService {
         );
 
     }
+
+    public CustomerResponse updateCustomer(Integer customerId, CustomerRequest request, Authentication connectedUser) {
+
+        CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
+        User user = userDetails.getUser();
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(()-> new EntityNotFoundException("Customer with id " + customerId + " not found"));
+
+        customer.setFirstName(request.firstName());
+        customer.setLastName(request.lastName());
+        customer.setEmail(request.email());
+        customer.setRegion(request.region());
+
+        return customerMapper.toCustomerResponse(customerRepository.save(customer));
+    }
 }
+
+
+
+
+

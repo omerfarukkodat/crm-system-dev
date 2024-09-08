@@ -3,6 +3,7 @@ package com.kodat.of.crmsystemdevelopment.customer;
 
 import com.kodat.of.crmsystemdevelopment.common.PageResponse;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,15 @@ public class CustomerController {
             Authentication connectedUser
     ){
         return ResponseEntity.ok(service.findAllCustomers(page,size,connectedUser));
+    }
+
+    @PutMapping("{/customerId}")
+    public ResponseEntity<CustomerResponse> updateCustomer(
+            @PathVariable("customerId") Integer customerId,
+            @RequestBody @Valid CustomerRequest request,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(service.updateCustomer(customerId,request,connectedUser));
     }
 
 
