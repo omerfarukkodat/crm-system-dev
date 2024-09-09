@@ -14,9 +14,11 @@ const RegisterPage = () => {
         setError('');
 
         try {
-            await axios.post('http://localhost:8088/api/auth/register', {
+            await axios.post('http://localhost:8088/api/v1/auth/register', {
                 username,
                 password,
+            },{
+                withCredentials: true,
             });
 
             // If the Registration is success , navigate the login page
