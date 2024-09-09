@@ -5,6 +5,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/crm-system-development/crm-system-development/pom.xml" />
+        <option value="$PROJECT_DIR$/crm-system-development/pom.xml" />
       </list>
     </option>
   </component>
