@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("customers")
 @Tag(name = "customer", description = "Endpoints for customer management")
 public class CustomerController {
-
     private final CustomerService service;
 
     public CustomerController(CustomerService service) {
@@ -33,7 +33,8 @@ public class CustomerController {
             @Valid @RequestBody CustomerRequest request,
             Authentication connectedUser
     ) {
-        return ResponseEntity.ok(service.saveCustomer(request, connectedUser));
+       Integer customerId =  service.saveCustomer(request,connectedUser);
+        return ResponseEntity.ok(customerId);
     }
 
     @GetMapping("{customer-id}")

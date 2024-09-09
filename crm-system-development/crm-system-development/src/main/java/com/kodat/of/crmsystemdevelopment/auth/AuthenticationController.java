@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("auth")
 @Tag(name = "Authentication")
 public class AuthenticationController {
-
     private final AuthenticationService service;
 
     public AuthenticationController(AuthenticationService service) {
@@ -29,7 +28,8 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "202", description = "User successfully registered"),
             @ApiResponse(responseCode = "400", description = "Invalid request")})
     public ResponseEntity<?> register(
-            @RequestBody @Valid RegistrationRequest request){
+            @RequestBody @Valid RegistrationRequest request) {
+
         service.register(request);
         return ResponseEntity.accepted().build();
     }
@@ -44,10 +44,6 @@ public class AuthenticationController {
     ){
         return ResponseEntity.ok(service.authenticate(request));
     }
-
-
-
-
 
 
 }
