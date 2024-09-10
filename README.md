@@ -13,23 +13,23 @@ This project is a CRM system for managing customer data. It is built using Sprin
 
 ## API Endpoints
 
-### Customer Management
+### Customer Management /api/v1/customers
 
 | HTTP Method | Endpoint                 | Description                    |
 |-------------|--------------------------|--------------------------------|
-| PUT         | /customers/{customerId}  | Update a customer by ID.       |
-| DELETE      | /customers/{customerId}  | Delete a customer by ID.       |
-| GET         | /customers               | Retrieve all customers.        |
-| POST        | /customers               | Create a new customer.         |
-| GET         | /customers/{customerId}  | Find a customer by ID.         |
-| GET         | /customers/filter        | Filter customers based on criteria. |
+| PUT         | /{customerId}            | Update a customer by ID.       |
+| DELETE      | /{customerId}            | Delete a customer by ID.       |
+| GET         | /                        | Retrieve all customers.        |
+| POST        | /                        | Create a new customer.         |
+| GET         | /{customerId}            | Find a customer by ID.         |
+| GET         | /filter                  | Filter customers based on criteria. |
 
-### Authentication
+### Authentication /api/v1/auth
 
 | HTTP Method | Endpoint                 | Description                    |
 |-------------|--------------------------|--------------------------------|
-| POST        | /auth/register           | Register a new user.           |
-| POST        | /auth/authenticate       | Authenticate a user and issue a token. |
+| POST        | /register                | Register a new user.           |
+| POST        | /authenticate            | Authenticate a user and issue a token. |
 
 
 ## Schemas
