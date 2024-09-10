@@ -3,7 +3,7 @@ import { Box, Flex, Button, Input, Select, Table, Thead, Tbody, Tr, Th, Td, useD
 import axios from 'axios';
 import CustomerTable from '../components/Customers/CustomerTable';
 import AddCustomerModel from '../components/Customers/AddCustomerModel';
-import UpdateCustomerModal from '../components/Customers/UpdateCustomerModal';
+import UpdateCustomerModel from '../components/Customers/UpdateCustomerModel';
 import LogoutButton from "../components/Customers/Logout";
 
 const DashboardPage = () => {
@@ -145,7 +145,7 @@ const DashboardPage = () => {
             />
 
             {selectedCustomer && (
-                <UpdateCustomerModal
+                <UpdateCustomerModel
                     isOpen={isUpdateOpen}
                     onClose={closeUpdateModal}
                     selectedCustomer={selectedCustomer}
