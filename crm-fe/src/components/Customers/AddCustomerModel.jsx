@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Input, FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/react';
 import axios from "axios";
-const AddCustomerModal = ({ isOpen, onClose, newCustomer, setNewCustomer, fetchFilteredCustomers }) => {
+const AddCustomerModel = ({ isOpen, onClose, newCustomer, setNewCustomer, fetchFilteredCustomers }) => {
     const [error, setError] = useState('');
 
     const isValidEmail = (email) => {
@@ -15,7 +15,7 @@ const AddCustomerModal = ({ isOpen, onClose, newCustomer, setNewCustomer, fetchF
             return;
         }
 
-        // Eğer e-mail geçerliyse, hata mesajını sıfırla
+        // If the email valid ,  reset the error message
         setError('');
 
         try {
@@ -85,5 +85,5 @@ const AddCustomerModal = ({ isOpen, onClose, newCustomer, setNewCustomer, fetchF
     );
 };
 
-export default AddCustomerModal;
+export default AddCustomerModel;
 

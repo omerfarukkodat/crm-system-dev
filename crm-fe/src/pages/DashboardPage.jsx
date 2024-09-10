@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Flex, Button, Input, Select, Table, Thead, Tbody, Tr, Th, Td, useDisclosure } from '@chakra-ui/react';
 import axios from 'axios';
 import CustomerTable from '../components/Customers/CustomerTable';
-import AddCustomerModal from '../components/Customers/AddCustomerModal';
+import AddCustomerModel from '../components/Customers/AddCustomerModel';
 import UpdateCustomerModal from '../components/Customers/UpdateCustomerModal';
 import LogoutButton from "../components/Customers/Logout";
 
@@ -136,7 +136,7 @@ const DashboardPage = () => {
                 </Button>
             </Flex>
 
-            <AddCustomerModal
+            <AddCustomerModel
                 isOpen={isAddOpen}
                 onClose={closeAddModal}
                 newCustomer={newCustomer}
