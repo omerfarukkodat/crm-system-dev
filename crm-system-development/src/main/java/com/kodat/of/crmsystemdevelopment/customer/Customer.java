@@ -31,7 +31,7 @@ public class Customer {
     @Column(updatable = false,  nullable = false)
     private LocalDateTime registrationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
