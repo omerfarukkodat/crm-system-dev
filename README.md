@@ -79,17 +79,18 @@ It is as easy as explained above. Now we are ready to see front end.
 
 
 ### Screenshot 1
-![Screenshot 2](https://github.com/omerfarukkodat/aaa/blob/769f0c0304a53dd1fd26e0cfda279c1a96706d1c/Ekran%20Resmi%202024-09-10%20O%CC%88S%207.26.41.png)
+<img width="1440" alt="Ekran Resmi 2024-09-10 ÖS 7 26 41" src="https://github.com/user-attachments/assets/8a99a66a-a9d8-475e-8ded-2080be55b436">
 
 ### Screenshot 2
-![Screenshot 3](https://github.com/omerfarukkodat/aaa/blob/769f0c0304a53dd1fd26e0cfda279c1a96706d1c/Ekran%20Resmi%202024-09-10%20O%CC%88S%207.28.14.png)
+
+<img width="1436" alt="Ekran Resmi 2024-09-10 ÖS 7 28 14" src="https://github.com/user-attachments/assets/6729e263-44a1-4d6b-9681-e13371fa900e">
 
 ### Screenshot 3
 
-![Screenshot 2](https://github.com/omerfarukkodat/aaa/blob/769f0c0304a53dd1fd26e0cfda279c1a96706d1c/Ekran%20Resmi%202024-09-10%20O%CC%88S%207.28.46.png)
+<img width="1440" alt="Ekran Resmi 2024-09-10 ÖS 7 28 46" src="https://github.com/user-attachments/assets/7a91b7ba-7f57-47a6-a6cf-a7765eb08752">
 
 ### Screenshot 4
-![Screenshot 5](https://github.com/omerfarukkodat/aaa/blob/769f0c0304a53dd1fd26e0cfda279c1a96706d1c/Ekran%20Resmi%202024-09-10%20O%CC%88S%207.29.04.png)
+<img width="1439" alt="Ekran Resmi 2024-09-10 ÖS 7 29 04" src="https://github.com/user-attachments/assets/5cdcead8-2f53-4eda-8a60-b7153cf4089a">
 
 ## Contact
 
