@@ -34,9 +34,6 @@ public class CustomerService {
     }
 
     public Integer saveCustomer(CustomerRequest request, Authentication connectedUser) {
-
-
-
         CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
         User user = userDetails.getUser();
 
@@ -58,35 +55,29 @@ public class CustomerService {
     }
 
     public CustomerResponse findByCustomerId(Integer customerId) {
-        LOGGER.info("Finding customer by id {}", customerId);
-        return customerRepository.findById(customerId).map(customerMapper::toCustomerResponse).orElseThrow(() -> {
-            LOGGER.warn("Customer with id {} not found", customerId);
-            return new CustomerNotFoundException("Customer with id " + customerId + " not found");
-        });
+        return customerRepository.findById(customerId).map(customerMapper::toResponse).orElseThrow(() ->
+             new CustomerNotFoundException("Customer with id " + customerId + " not found")
+        );
     }
-
 
     public PageResponse<CustomerResponse> findAllCustomers(int page, int size, Authentication connectedUser) {
         CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
         User user = userDetails.getUser();
         Pageable pageable = PageRequest.of(page, size, Sort.by("registrationDate").descending());
         Page<Customer> customers = customerRepository.findAll(pageable);
-        List<CustomerResponse> customerResponses = customers.stream().map(customerMapper::toCustomerResponse).toList();
+        List<CustomerResponse> customerResponses = customers.stream().map(customerMapper::toResponse).toList();
 
         LOGGER.info("Customers found.There are {} customers", customers.getTotalElements());
         return new PageResponse<>(customerResponses, customers.getNumber(), customers.getSize(), customers.getTotalElements(), customers.getTotalPages(), customers.isFirst(), customers.isLast());
-
     }
 
     public CustomerResponse updateCustomer(Integer customerId, CustomerRequest request, Authentication connectedUser) {
 
         CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
         User user = userDetails.getUser();
-
-        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> {
-            LOGGER.warn("Customer with id {} not found for update", customerId);
-            return new CustomerNotFoundException("Customer with id " + customerId + " not found");
-        });
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() ->
+         new CustomerNotFoundException("Customer with id " + customerId + " not found")
+        );
 
         customer.setFirstName(request.firstName());
         customer.setLastName(request.lastName());
@@ -97,18 +88,17 @@ public class CustomerService {
         customerRepository.save(customer);
         LOGGER.info("Customer {} updated successfully by user {}", customer.getId(), user.getUsername());
 
-        return customerMapper.toCustomerResponse(customer);
+        return customerMapper.toResponse(customer);
     }
 
     public void deleteCustomer(Integer customerId, Authentication connectedUser) {
         CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
         User user = userDetails.getUser();
 
-        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() ->
 
-            LOGGER.warn("Customer with id {} not found for delete", customerId);
-            return new CustomerNotFoundException("Customer with id " + customerId + " not found");
-        });
+             new CustomerNotFoundException("Customer with id " + customerId + " not found")
+        );
         LOGGER.info("Customer {} deleted successfully by user {}", customer.getId(), user.getUsername());
         customerRepository.delete(customer);
     }
@@ -134,7 +124,7 @@ public class CustomerService {
                 .filter(customer -> lastName == null || customer.getLastName().toLowerCase().startsWith(lastName.toLowerCase()))
                 .filter(customer -> email == null || customer.getEmail().toLowerCase().startsWith(email.toLowerCase()))
                 .filter(customer -> region == null || customer.getRegion().toLowerCase().startsWith(region.toLowerCase()))
-                .map(customerMapper::toCustomerResponse).toList();
+                .map(customerMapper::toResponse).toList();
         LOGGER.info("Filtered Criteria {} for {} customers", filterCriteria, customerResponses.size());
         return new PageResponse<>(customerResponses, customerPage.getNumber(), customerPage.getSize(), customerPage.getTotalElements(), customerPage.getTotalPages(), customerPage.isFirst(), customerPage.isLast());
 

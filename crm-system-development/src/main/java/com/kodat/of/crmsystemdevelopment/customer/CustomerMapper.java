@@ -16,7 +16,7 @@ public class CustomerMapper {
 
     }
 
-    public CustomerResponse toCustomerResponse(Customer customer){
+    public CustomerResponse toResponse(Customer customer){
 
         return CustomerResponse
                 .builder()

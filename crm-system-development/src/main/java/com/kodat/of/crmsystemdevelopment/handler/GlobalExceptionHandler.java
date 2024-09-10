@@ -5,6 +5,8 @@ import com.kodat.of.crmsystemdevelopment.exception.CustomerNotFoundException;
 import com.kodat.of.crmsystemdevelopment.exception.RoleNotFoundException;
 import com.kodat.of.crmsystemdevelopment.exception.UserAlreadyExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,54 +19,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-
-    @ExceptionHandler(CustomerNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleException(CustomerNotFoundException e) {
-    return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(
-                    ExceptionResponse
-                            .builder()
-                            .businessErrorCode(BusinessErrorCodes.CUSTOMER_NOT_FOUND.getCode())
-                            .businessErrorDescription(BusinessErrorCodes.CUSTOMER_NOT_FOUND.getDescription())
-                            .error(e.getMessage())
-                            .build()
-            );
-    }
-
-    @ExceptionHandler(RoleNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleException(RoleNotFoundException e) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(
-                        ExceptionResponse
-                                .builder()
-                                .businessErrorCode(BusinessErrorCodes.ROLE_NOT_FOUND.getCode())
-                                .businessErrorDescription(BusinessErrorCodes.ROLE_NOT_FOUND.getDescription())
-                                .error(e.getMessage())
-                                .build()
-                );
-    }
-
-
-
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ExceptionResponse> handleException(UserAlreadyExistsException e) {
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(
-                        ExceptionResponse
-                                .builder()
-                                .businessErrorCode(BusinessErrorCodes.USER_ALREADY_EXISTS.getCode())
-                                .businessErrorDescription(BusinessErrorCodes.USER_ALREADY_EXISTS.getDescription())
-                                .error(e.getMessage())
-                                .build()
-                );
-    }
-
-
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
 
@@ -132,6 +87,59 @@ public class GlobalExceptionHandler {
                                 .build()
                 );
     }
+
+
+
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomerNotFoundException(CustomerNotFoundException e) {
+        LOGGER.warn("Customer  not found");
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(
+                    ExceptionResponse
+                            .builder()
+                            .businessErrorCode(BusinessErrorCodes.CUSTOMER_NOT_FOUND.getCode())
+                            .businessErrorDescription(BusinessErrorCodes.CUSTOMER_NOT_FOUND.getDescription())
+                            .error(e.getMessage())
+                            .build()
+            );
+
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleRoleNotFoundException(RoleNotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(
+                        ExceptionResponse
+                                .builder()
+                                .businessErrorCode(BusinessErrorCodes.ROLE_NOT_FOUND.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.ROLE_NOT_FOUND.getDescription())
+                                .error(e.getMessage())
+                                .build()
+                );
+    }
+
+
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponse> handleUserAlreadyExistsException(UserAlreadyExistsException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(
+                        ExceptionResponse
+                                .builder()
+                                .businessErrorCode(BusinessErrorCodes.USER_ALREADY_EXISTS.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.USER_ALREADY_EXISTS.getDescription())
+                                .error(e.getMessage())
+                                .build()
+                );
+    }
+
+
+
+
 
 
 

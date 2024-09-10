@@ -11,10 +11,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-@RestController
-@RequestMapping("customers")
 @Tag(name = "customer", description = "Endpoints for customer management")
+@RestController
+@RequestMapping("/customers")
 public class CustomerController {
     private final CustomerService service;
 
@@ -37,14 +36,14 @@ public class CustomerController {
         return ResponseEntity.ok(customerId);
     }
 
-    @GetMapping("{customer-id}")
+    @GetMapping("{customerId}")
     @Operation(summary = "Find customer by ID", description = "Fetches a customer by their ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Customer found"),
             @ApiResponse(responseCode = "404", description = "Customer not found")
     })
     public ResponseEntity<CustomerResponse> findCustomerById(
-            @PathVariable("customer-id") Integer customerId
+            @PathVariable("customerId") Integer customerId
     ) {
         return ResponseEntity.ok(service.findByCustomerId(customerId));
     }
