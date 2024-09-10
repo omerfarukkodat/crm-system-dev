@@ -47,7 +47,7 @@ This project is a CRM system for managing customer data. It is built using Sprin
 project
 
 ```bash
-  git clone https://github.com/omerfarukkodat/crm-dev
+  git clone https://github.com/omerfarukkodat/crm-system-dev
 ```
 
 ### For Backend Services:
