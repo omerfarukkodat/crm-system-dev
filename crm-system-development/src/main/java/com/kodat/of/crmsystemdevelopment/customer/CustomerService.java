@@ -15,7 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CustomerService {
@@ -33,8 +35,16 @@ public class CustomerService {
 
     public Integer saveCustomer(CustomerRequest request, Authentication connectedUser) {
 
+
+
         CustomUserDetails userDetails = (CustomUserDetails) connectedUser.getPrincipal();
         User user = userDetails.getUser();
+
+        if (customerRepository.existsByEmail(request.email())){
+            LOGGER.error("Email {} already exists" , request.email());
+            throw new DataIntegrityViolationException("Email " + request.email() + " already exists");
+        }
+
         Customer customer = customerMapper.toCustomer(request);
         customer.setUser(user);
 
@@ -43,7 +53,6 @@ public class CustomerService {
             LOGGER.info("Customer {} created successfully by user {}", customer.getId(), user.getUsername());
             return customer.getId();
         } catch (DataIntegrityViolationException e) {
-            LOGGER.error("Customer {} already exists created by user {}", customer.getEmail(), customer.getUser().getUsername());
             throw new DataIntegrityViolationException("Duplicate email or data integrity violation occurred");
         }
     }
@@ -113,8 +122,20 @@ public class CustomerService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("registrationDate").descending());
         Page<Customer> customerPage = customerRepository.findAll(pageable);
 
-        List<CustomerResponse> customerResponses = customerPage.stream().filter(customer -> firstName == null || customer.getFirstName().toLowerCase().startsWith(firstName.toLowerCase())).filter(customer -> lastName == null || customer.getLastName().toLowerCase().startsWith(lastName.toLowerCase())).filter(customer -> email == null || customer.getEmail().toLowerCase().startsWith(email.toLowerCase())).filter(customer -> region == null || customer.getRegion().toLowerCase().startsWith(region.toLowerCase())).map(customerMapper::toCustomerResponse).toList();
-        LOGGER.info("Filtered customers with criteria {}", customerResponses);
+        Map<String, String> filterCriteria = new HashMap<>();
+        filterCriteria.put("firstName", firstName);
+        filterCriteria.put("lastName", lastName);
+        filterCriteria.put("email", email);
+        filterCriteria.put("region", region);
+
+        List<CustomerResponse> customerResponses = customerPage
+                .stream()
+                .filter(customer -> firstName == null || customer.getFirstName().toLowerCase().startsWith(firstName.toLowerCase()))
+                .filter(customer -> lastName == null || customer.getLastName().toLowerCase().startsWith(lastName.toLowerCase()))
+                .filter(customer -> email == null || customer.getEmail().toLowerCase().startsWith(email.toLowerCase()))
+                .filter(customer -> region == null || customer.getRegion().toLowerCase().startsWith(region.toLowerCase()))
+                .map(customerMapper::toCustomerResponse).toList();
+        LOGGER.info("Filtered Criteria {} for {} customers", filterCriteria, customerResponses.size());
         return new PageResponse<>(customerResponses, customerPage.getNumber(), customerPage.getSize(), customerPage.getTotalElements(), customerPage.getTotalPages(), customerPage.isFirst(), customerPage.isLast());
 
     }
