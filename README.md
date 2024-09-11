@@ -79,17 +79,22 @@ It is as easy as explained above. Now we are ready to see front end.
 
 
 ### Screenshot 1
-<img width="1440" alt="Ekran Resmi 2024-09-10 ÖS 7 26 41" src="https://github.com/user-attachments/assets/8a99a66a-a9d8-475e-8ded-2080be55b436">
+
+<img width="1440" alt="Ekran Resmi 2024-09-11 ÖS 5 39 38" src="https://github.com/user-attachments/assets/9803274d-5cd8-4c2c-a32d-abe78e20cbea">
 
 ### Screenshot 2
 
-<img width="1436" alt="Ekran Resmi 2024-09-10 ÖS 7 28 14" src="https://github.com/user-attachments/assets/6729e263-44a1-4d6b-9681-e13371fa900e">
+<img width="1434" alt="Ekran Resmi 2024-09-11 ÖS 5 40 45" src="https://github.com/user-attachments/assets/da4ab00a-4761-42a1-a32a-2172ad647c11">
 
 ### Screenshot 3
 
-<img width="1440" alt="Ekran Resmi 2024-09-10 ÖS 7 28 46" src="https://github.com/user-attachments/assets/7a91b7ba-7f57-47a6-a6cf-a7765eb08752">
+<img width="1436" alt="Ekran Resmi 2024-09-10 ÖS 7 28 14" src="https://github.com/user-attachments/assets/6729e263-44a1-4d6b-9681-e13371fa900e">
 
 ### Screenshot 4
+
+<img width="1440" alt="Ekran Resmi 2024-09-10 ÖS 7 28 46" src="https://github.com/user-attachments/assets/7a91b7ba-7f57-47a6-a6cf-a7765eb08752">
+
+### Screenshot 5
 <img width="1439" alt="Ekran Resmi 2024-09-10 ÖS 7 29 04" src="https://github.com/user-attachments/assets/5cdcead8-2f53-4eda-8a60-b7153cf4089a">
 
 ## Contact
