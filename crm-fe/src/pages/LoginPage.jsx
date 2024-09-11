@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Input, FormControl, FormLabel, Heading, VStack, Text } from '@chakra-ui/react';
+import {Box, Button, Input, FormControl, FormLabel, Heading, VStack, Text, HStack} from '@chakra-ui/react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -73,7 +73,15 @@ const LoginPage = () => {
                             />
                         </FormControl>
                         {error && <Text color="red.500">{error}</Text>}
-                        <Button type="submit" colorScheme="teal" width="full">Login</Button>
+                        <HStack spacing="4">
+                        <Button type="submit" colorScheme="teal" width="fit-content">Login</Button>
+                        <Button variant="link"
+                                colorScheme="teal"
+                                onClick={() => navigate('/register')}
+                                width="fit-content">
+                            Register
+                        </Button>
+                            </HStack>
                     </VStack>
                 </form>
             </Box>
