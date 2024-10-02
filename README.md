@@ -1,5 +1,5 @@
 
-# JEKIRDEK - CRM System Development
+# CRM System Development
 
 ## Project Overview
 This project is a CRM system for managing customer data. It is built using Spring Boot for the backend, MySQL as the database, and React.js for the frontend. The system includes basic CRUD operations, user authentication (login/logout), and the ability to filter customers by various criteria.
